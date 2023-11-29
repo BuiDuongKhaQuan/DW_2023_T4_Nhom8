@@ -1,4 +1,4 @@
-package abc;
+package data_warehouse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

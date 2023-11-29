@@ -1,4 +1,4 @@
-package abc;
+package data_warehouse;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -38,7 +38,7 @@ public class LoadDBStagingToDW {
 							date);
 
 					if (idDate == -1) {
-						// insert the date into the dim_date table and retrieve the generated id_date
+						// Insert the date into the dim_date table and retrieve the generated id_date
 						String[] dateParts = date.split("/");
 						String sqlQueryDimDate = "INSERT INTO dim_date (day, month, year, hour, minute) VALUES (?, ?, ?, ?, ?)";
 						try (PreparedStatement preparedStatementDimDate = connectionControl
