@@ -31,29 +31,14 @@ public class ExtractData {
 
 		try (Connection connection = DriverManager.getConnection(jdbcUrl, username, password)) {
 			// Câu lệnh SQL để thêm dữ liệu vào bảng log
-			String sqlQueryLog = "INSERT INTO log (time_extract, id_date, status_extract) VALUES (TIME(NOW()), CURDATE(), 'SE');";
+			String sqlQueryLog = "INSERT INTO log (id_config, time_extract, id_date, status_extract) VALUES (1, TIME(NOW()), CURDATE(), 'SE');";
 			// Câu lệnh SQL để thêm dữ liệu vào bảng config
-			String sqlQueryConfig = "INSERT INTO config (data_link, db_user, db_password, db_port, file_name) VALUES (?, ?, ?, ?, ?);";
 
 			// Sử dụng PreparedStatement để thực hiện câu lệnh SQL cho log
 			try (PreparedStatement preparedStatementLog = connection.prepareStatement(sqlQueryLog)) {
 				// Sử dụng executeUpdate() thay vì executeQuery() để thực hiện INSERT
 				int rowsAffectedLog = preparedStatementLog.executeUpdate();
 				System.out.println(rowsAffectedLog + " row(s) affected in log table.");
-			}
-
-			// Sử dụng PreparedStatement để thực hiện câu lệnh SQL cho config
-			try (PreparedStatement preparedStatementConfig = connection.prepareStatement(sqlQueryConfig)) {
-				// Đặt giá trị cho các tham số trong câu lệnh SQL cho config
-				preparedStatementConfig.setString(1, dataLink);
-				preparedStatementConfig.setString(2, username);
-				preparedStatementConfig.setString(3, password);
-				preparedStatementConfig.setString(4, "3307");
-				preparedStatementConfig.setString(5, dateNow + ".xlsx");
-
-				// Sử dụng executeUpdate() thay vì executeQuery() để thực hiện INSERT
-				int rowsAffectedConfig = preparedStatementConfig.executeUpdate();
-				System.out.println(rowsAffectedConfig + " row(s) affected in config table.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -86,7 +71,7 @@ public class ExtractData {
 				if (count == 0) {
 					// Không có bản ghi nào trong ngày hôm đó có status khác 'FE', bạn có thể chèn
 					// dữ liệu
-					String insertQuery = "INSERT INTO log ( time_extract, id_date, status_extract) VALUES ( TIME(NOW()), CURDATE(), 'CE');";
+					String insertQuery = "INSERT INTO log (id_config, time_extract, id_date, status_extract) VALUES (1, TIME(NOW()), CURDATE(), 'CE');";
 					PreparedStatement insertStatement = connection.prepareStatement(insertQuery);
 					int rowsAffected = insertStatement.executeUpdate();
 					insertStatement.close();
@@ -114,6 +99,7 @@ public class ExtractData {
 
 			// Lấy ngày cập nhật
 			String ngayCapNhatStr = doc.select("#time-now").text();
+
 			LocalDateTime ngayCapNhat = parseNgayCapNhat(ngayCapNhatStr);
 
 			// Lấy danh sách các hàng trong bảng giá vàng
@@ -128,7 +114,7 @@ public class ExtractData {
 				String giaBan = columns.get(2).select("span").text();
 
 				// Thêm dữ liệu vào danh sách
-				String[] rowData = { cityName, ngayCapNhat.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")), loaiVang,
+				String[] rowData = { cityName, ngayCapNhat.format(DateTimeFormatter.ofPattern("dd/MM/yyyy/HH/mm")), loaiVang,
 						giaMua, giaBan };
 				data.add(rowData);
 			}
