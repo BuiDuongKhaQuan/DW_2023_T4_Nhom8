@@ -17,12 +17,21 @@ public class LoadTextToDBStaging {
     public static void main(String[] args) {
         LocalDateTime currentDateTime = LocalDateTime.now();
         boolean fileFound = false;
+        /**
+         *  2. Searching file excel to load text
+         */
         while (!fileFound) {
+            // lấy thời gian hiện tại trừ đi 1 phút
             LocalDateTime previousMinuteDateTime = currentDateTime.minusMinutes(1);
             String datePrevious = previousMinuteDateTime.format(DateTimeFormatter.ofPattern("dd-MM-yyyy_HH-mm"));
             String excelFilePath = datePrevious + ".xlsx";
 
             File file = new File(excelFilePath);
+            /**
+             *   3. Check file excel exist or not
+             *          yes: connect database staging
+             *          no: end
+              */
             if (file.exists()) {
                 fileFound = true;
                 System.out.println("Đã tìm thấy file Excel: " + excelFilePath);
@@ -32,12 +41,17 @@ public class LoadTextToDBStaging {
                      Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:" + ConfigInfo.getInstance().getPort() + "/staging",
                              ConfigInfo.getInstance().getUsername(), ConfigInfo.getInstance().getPassword())) {
 
-                    // Xóa hết dữ liệu trong bảng trước khi chèn dữ liệu mới
+                    /**
+                     *   Delete all data in table pricegold to insert new data
+                     */
                     String deleteSql = "DELETE FROM price_gold";
                     try (PreparedStatement deleteStatement = connection.prepareStatement(deleteSql)) {
                         deleteStatement.executeUpdate();
                     }
 
+                    /**
+                     *  Insert data to table price_gold
+                     */
                     // Chuẩn bị câu lệnh chèn dữ liệu
                     String insertSql = "INSERT INTO price_gold (area, date, type, buy, sell) VALUES (?, ?, ?, ?, ?)";
                     try (PreparedStatement preparedStatement = connection.prepareStatement(insertSql)) {
@@ -73,6 +87,7 @@ public class LoadTextToDBStaging {
                     e.printStackTrace();
                 }
             } else {
+
                 currentDateTime = previousMinuteDateTime;
             }
         }
