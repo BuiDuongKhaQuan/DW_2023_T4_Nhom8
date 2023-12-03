@@ -1,6 +1,7 @@
 package data_warehouse;
 
 import java.sql.*;
+import java.time.LocalTime;
 
 public class LoadDWToDMART {
     private String urlControl = "jdbc:mysql://localhost:3306/db_control";
@@ -21,5 +22,16 @@ public class LoadDWToDMART {
             }
         }
         return Date.valueOf("1111-11-11");
+    }
+    private void insertLog(Connection conn, Date date) throws SQLException {
+        System.out.println("insertLog..." + date);
+        String sql = "INSERT INTO log (id_config, time_extract, id_date, status_extract) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement statement = conn.prepareStatement(sql)) {
+            statement.setInt(1, 1);
+            statement.setObject(2, LocalTime.now());
+            statement.setDate(3, date);
+            statement.setString(4, "MART");
+            statement.executeUpdate();
+        }
     }
 }
