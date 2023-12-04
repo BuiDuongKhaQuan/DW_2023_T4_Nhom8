@@ -10,6 +10,32 @@ public class LoadDWToDMART {
     private String userName = ConfigInfo.getInstance().getUsername();
     private String password = ConfigInfo.getInstance().getPassword();
 
+    private Connection connectDb(String url) throws SQLException {
+        return DriverManager.getConnection(url, userName, password);
+    }
+
+    public void loadData(Date dat) {
+        try (Connection connectionControl = connectDb(urlControl);
+             Connection connectionWarehouse = connectDb(urlWarehouse);
+             Connection connectionMart = connectDb(urlMart)) {
+
+            Date date = getDateLast(connectionControl);
+            System.out.println("DateLast = " + date);
+            String sql = "SELECT d.id, CONCAT(d.year, '-', d.month, '-', d.day) AS date_str " +
+                    "FROM dim_date d WHERE CONCAT(d.year, '-', d.month, '-', d.day) > ?";
+            try (PreparedStatement statement = connectionWarehouse.prepareStatement(sql)) {
+                statement.setDate(1, date);
+                try (ResultSet rs = statement.executeQuery()) {
+                    while (rs.next()) {
+                        loading(connectionWarehouse, connectionMart, connectionControl, rs.getInt(1), rs.getDate(2));
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     private Date getDateLast(Connection conn) throws SQLException {
         String sql = "SELECT MAX(l.id_date) FROM log l WHERE l.status_extract = ?";
         try (PreparedStatement statement = conn.prepareStatement(sql)) {
