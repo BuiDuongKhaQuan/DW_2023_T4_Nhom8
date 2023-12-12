@@ -17,7 +17,7 @@ public class LoadDBStagingToDW {
 		String jdbcUrlStaging = "jdbc:mysql://localhost:" + port + "/staging";
 
 		try ( // Establish connections to control and staging databases using JDBC
-				Connection connectionControl = DriverManager.getConnection(jdbcUrlWarehouse, userName, password);
+				Connection connectionWarehouse = DriverManager.getConnection(jdbcUrlWarehouse, userName, password);
 				Connection connectionStaging = DriverManager.getConnection(jdbcUrlStaging, userName, password)) {
 			// Execute SQL query to get all data from staging table "price_gold"
 			String sqlQueryGetAllStaging = "SELECT * FROM price_gold;";
@@ -34,14 +34,14 @@ public class LoadDBStagingToDW {
 					String sell = resultSet.getString("sell");
 
 					// Check if Data Exists in dim_date
-					int idDate = getIdIfExists(connectionControl, "dim_date", "day", "month", "year", "hour", "minute",
+					int idDate = getIdIfExists(connectionWarehouse, "dim_date", "day", "month", "year", "hour", "minute",
 							date);
 
 					if (idDate == -1) {
 						// Insert the date into the dim_date table and retrieve the generated id_date
 						String[] dateParts = date.split("/");
 						String sqlQueryDimDate = "INSERT INTO dim_date (day, month, year, hour, minute) VALUES (?, ?, ?, ?, ?)";
-						try (PreparedStatement preparedStatementDimDate = connectionControl
+						try (PreparedStatement preparedStatementDimDate = connectionWarehouse
 								.prepareStatement(sqlQueryDimDate, PreparedStatement.RETURN_GENERATED_KEYS)) {
 							preparedStatementDimDate.setString(1, dateParts[0]); // day
 							preparedStatementDimDate.setString(2, dateParts[1]); // month
@@ -62,12 +62,12 @@ public class LoadDBStagingToDW {
 					}
 
 					// Check if Data Exists in dim_area
-					int idProvince = getIdIfExists(connectionControl, "dim_area", "name", province);
+					int idProvince = getIdIfExists(connectionWarehouse, "dim_area", "name", province);
 					if (idProvince == -1) {
 						// insert the province into the dim_province table and retrieve the generated
 						// id_area
 						String sqlQueryDimProvince = "INSERT INTO dim_area (name) VALUES (?)";
-						try (PreparedStatement preparedStatementDimProvince = connectionControl
+						try (PreparedStatement preparedStatementDimProvince = connectionWarehouse
 								.prepareStatement(sqlQueryDimProvince, PreparedStatement.RETURN_GENERATED_KEYS)) {
 							preparedStatementDimProvince.setString(1, province);
 							preparedStatementDimProvince.executeUpdate();
@@ -84,12 +84,12 @@ public class LoadDBStagingToDW {
 					}
 
 					// Check if Data Exists in dim_gold_type
-					int idGoldType = getIdIfExists(connectionControl, "dim_gold_type", "type", type);
+					int idGoldType = getIdIfExists(connectionWarehouse, "dim_gold_type", "type", type);
 					if (idGoldType == -1) {
 						// insert the gold type into the dim_gold_type table and retrieve the generated
 						// id_gold_type
 						String sqlQueryDimGoldType = "INSERT INTO dim_gold_type (type) VALUES (?)";
-						try (PreparedStatement preparedStatementDimGoldType = connectionControl
+						try (PreparedStatement preparedStatementDimGoldType = connectionWarehouse
 								.prepareStatement(sqlQueryDimGoldType, PreparedStatement.RETURN_GENERATED_KEYS)) {
 							preparedStatementDimGoldType.setString(1, type);
 							preparedStatementDimGoldType.executeUpdate();
@@ -107,7 +107,7 @@ public class LoadDBStagingToDW {
 
 					// Insert data into fact_gold_price table
 					String sqlQueryFactGoldPrice = "INSERT INTO fact_gold_price (id_date, id_area, id_gold_type, buy, sell) VALUES (?, ?, ?, ?, ?)";
-					try (PreparedStatement preparedStatementFactGoldPrice = connectionControl
+					try (PreparedStatement preparedStatementFactGoldPrice = connectionWarehouse
 							.prepareStatement(sqlQueryFactGoldPrice)) {
 						preparedStatementFactGoldPrice.setInt(1, idDate);
 						preparedStatementFactGoldPrice.setInt(2, idProvince);
@@ -122,7 +122,7 @@ public class LoadDBStagingToDW {
 			}
 			System.out.println("Tiến trình hoàn tất!");
 			// Close connections
-			connectionControl.close();
+			connectionWarehouse.close();
 			connectionStaging.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
