@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80a2338f-ed06-490b-8ac8-3605f9f42531" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data_warehouse/LoadDBStagingToDW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_warehouse/LoadDBStagingToDW.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +20,9 @@
       </list>
     </option>
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectId" id="2Z2Tnt829FmMvrE6NOMp0n0d0p5" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -29,11 +33,16 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "D:/Eclipse/DW_2023_T4_Nhom8",
+    "last_opened_file_path": "D:/DoAnMonHoc/HK1_2023-2024/DataWarehouse/DW_2023_T4_Nhom8",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.LoadDBStagingToDW">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -45,6 +54,52 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="ExtractData" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="data_warehouse.ExtractData" />
+      <module name="DW_Nhom8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data_warehouse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoadDBStagingToDW" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="data_warehouse.LoadDBStagingToDW" />
+      <module name="DW_Nhom8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data_warehouse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LoadTextToDBStaging" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="data_warehouse.LoadTextToDBStaging" />
+      <module name="DW_Nhom8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data_warehouse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.LoadDBStagingToDW" />
+        <item itemvalue="Application.LoadTextToDBStaging" />
+        <item itemvalue="Application.ExtractData" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -57,7 +112,8 @@
       <workItem from="1701619348525" duration="712000" />
       <workItem from="1701620095764" duration="210000" />
       <workItem from="1701698983861" duration="311000" />
-      <workItem from="1702363821988" duration="155000" />
+      <workItem from="1702363821988" duration="381000" />
+      <workItem from="1702365252000" duration="1884000" />
     </task>
     <servers />
   </component>
