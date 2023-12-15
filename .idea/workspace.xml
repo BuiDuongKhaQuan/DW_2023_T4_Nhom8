@@ -5,8 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="80a2338f-ed06-490b-8ac8-3605f9f42531" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/data_warehouse/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_warehouse/ConfigInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_warehouse/ConfigInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_warehouse/ExtractData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_warehouse/ExtractData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/data_warehouse/LoadDBStagingToDW.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_warehouse/LoadDBStagingToDW.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data_warehouse/LoadTextToDBStaging.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data_warehouse/LoadTextToDBStaging.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,10 +43,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.LoadDBStagingToDW">
+  <component name="RunManager" selected="Application.Main">
     <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -93,8 +98,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="data_warehouse.Main" />
+      <module name="DW_Nhom8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data_warehouse.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Main" />
         <item itemvalue="Application.LoadDBStagingToDW" />
         <item itemvalue="Application.LoadTextToDBStaging" />
         <item itemvalue="Application.ExtractData" />
@@ -113,7 +132,8 @@
       <workItem from="1701620095764" duration="210000" />
       <workItem from="1701698983861" duration="311000" />
       <workItem from="1702363821988" duration="381000" />
-      <workItem from="1702365252000" duration="1884000" />
+      <workItem from="1702365252000" duration="2528000" />
+      <workItem from="1702369987624" duration="3269000" />
     </task>
     <servers />
   </component>

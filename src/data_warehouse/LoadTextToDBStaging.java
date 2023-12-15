@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class LoadTextToDBStaging {
-    public static void main(String[] args) {
+    public static void load(){
         LocalDateTime currentDateTime = LocalDateTime.now();
         boolean fileFound = false;
         /**
@@ -31,14 +31,14 @@ public class LoadTextToDBStaging {
              *   3. Check file excel exist or not
              *          yes: connect database staging
              *          no: end
-              */
+             */
             if (file.exists()) {
                 fileFound = true;
                 System.out.println("Đã tìm thấy file Excel: " + excelFilePath);
 
                 try (FileInputStream fileInputStream = new FileInputStream(excelFilePath);
                      Workbook workbook = new XSSFWorkbook(fileInputStream);
-                     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:" + ConfigInfo.getInstance().getPort() + "/staging",
+                     Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:" + ConfigInfo.getInstance().getPort() + "/db_staging",
                              ConfigInfo.getInstance().getUsername(), ConfigInfo.getInstance().getPassword())) {
 
                     /**
@@ -92,4 +92,5 @@ public class LoadTextToDBStaging {
             }
         }
     }
+
 }

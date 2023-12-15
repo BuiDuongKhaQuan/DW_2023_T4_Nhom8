@@ -30,7 +30,7 @@ public class ConfigInfo {
     }
 
     private static ConfigInfo loadConfigInfo() {
-        String jdbcUrlConfig = "jdbc:mysql://localhost:3307/control";
+        String jdbcUrlConfig = "jdbc:mysql://localhost:3307/db_control";
         String sqlQueryGetConfig = "SELECT * FROM config";
         try {
             Connection connectionConfig = DriverManager.getConnection(jdbcUrlConfig, "root", "");

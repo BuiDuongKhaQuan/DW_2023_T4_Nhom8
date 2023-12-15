@@ -21,9 +21,8 @@ import java.util.List;
 
 public class ExtractData {
 
-	public static void main(String[] args) {
-		
-		String jdbcUrl = "jdbc:mysql://localhost:3307/control";
+	public static void extract(){
+		String jdbcUrl = "jdbc:mysql://localhost:3307/db_control";
 		String username = "root";
 		String password = "";
 		String dataLink = "https://www.pnj.com.vn/blog/gia-vang";
@@ -43,25 +42,25 @@ public class ExtractData {
 				System.out.println(rowsAffectedLog + " row(s) affected in log table.");
 			}
 
-		// Lấy dữ liệu cho Hồ Chí Minh và Cần Thơ
-		List<String[]> hoChiMinhData = fetchData(dataLink + "/?zone=00", "Hồ Chí Minh");
-		List<String[]> canThoData = fetchData(dataLink + "/?zone=07", "Cần Thơ");
-		List<String[]> HaNoiData = fetchData(dataLink + "/?zone=11", "Hà Nội");
-		List<String[]> DaNangData = fetchData(dataLink + "/?zone=13", "Đà Nẵng");
-		List<String[]> TayNguyenData = fetchData(dataLink + "/?zone=14", "Tây Nguyên");
-		List<String[]> DNBData = fetchData(dataLink + "/?zone=21", "Đông Nam Bộ");
-		// Ghi dữ liệu vào cùng một file Excel
+			// Lấy dữ liệu cho Hồ Chí Minh và Cần Thơ
+			List<String[]> hoChiMinhData = fetchData(dataLink + "/?zone=00", "Hồ Chí Minh");
+			List<String[]> canThoData = fetchData(dataLink + "/?zone=07", "Cần Thơ");
+			List<String[]> HaNoiData = fetchData(dataLink + "/?zone=11", "Hà Nội");
+			List<String[]> DaNangData = fetchData(dataLink + "/?zone=13", "Đà Nẵng");
+			List<String[]> TayNguyenData = fetchData(dataLink + "/?zone=14", "Tây Nguyên");
+			List<String[]> DNBData = fetchData(dataLink + "/?zone=21", "Đông Nam Bộ");
+			// Ghi dữ liệu vào cùng một file Excel
 /**
  *   4. Write data to excel
-  */
-		writeToExcel(hoChiMinhData, canThoData, HaNoiData, DaNangData, TayNguyenData, DNBData,  dateNow +".xlsx");
+ */
+			writeToExcel(hoChiMinhData, canThoData, HaNoiData, DaNangData, TayNguyenData, DNBData,  dateNow +".xlsx");
 
-		System.out.println("Dữ liệu đã được ghi vào file Excel.");
+			System.out.println("Dữ liệu đã được ghi vào file Excel.");
 /**
  *  5. Check if data extract success or not
  *  		yes: insert log with status CE
  *  		no: insert log with status FE
-  */
+ */
 			String sqlQueryLog1 = "INSERT INTO log (id_config, time_extract, id_date, status_extract) VALUES (1, TIME(NOW()), CURDATE(), 'CE');";
 
 			try (PreparedStatement preparedStatementLog = connection.prepareStatement(sqlQueryLog1)) {
@@ -119,7 +118,7 @@ public class ExtractData {
 	}
 
 	private static void writeToExcel(List<String[]> hoChiMinhData, List<String[]> canThoData, List<String[]> HaNoiData,
-			List<String[]> DaNangData, List<String[]> TayNguyenData, List<String[]> DNBData, String filePath) {
+									 List<String[]> DaNangData, List<String[]> TayNguyenData, List<String[]> DNBData, String filePath) {
 		try (Workbook workbook = new XSSFWorkbook()) {
 			// Tạo một sheet trong workbook
 			Sheet sheet = workbook.createSheet("GiaVang");
@@ -149,7 +148,7 @@ public class ExtractData {
 
 		} catch (IOException e) {
 			try {
-				String jdbcUrl = "jdbc:mysql://localhost:3307/control";
+				String jdbcUrl = "jdbc:mysql://localhost:3307/db_control";
 				String username = "root";
 				String password = "";
 				Connection connection = DriverManager.getConnection(jdbcUrl, username, password);

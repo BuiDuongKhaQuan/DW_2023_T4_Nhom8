@@ -7,11 +7,11 @@ public class LoadDBStagingToDW {
     static String port = ConfigInfo.getInstance().getPort();
     static String userName = ConfigInfo.getInstance().getUsername();
     static String password = ConfigInfo.getInstance().getPassword();
-    static String jdbcUrlWarehouse = "jdbc:mysql://localhost:" + port + "/data_warehouse";
-    static String jdbcUrlStaging = "jdbc:mysql://localhost:" + port + "/staging";
-    static String urlControl = "jdbc:mysql://localhost:" + port + "/control";
+    static String jdbcUrlWarehouse = "jdbc:mysql://localhost:" + port + "/db_warehouse";
+    static String jdbcUrlStaging = "jdbc:mysql://localhost:" + port + "/db_staging";
+    static String urlControl = "jdbc:mysql://localhost:" + port + "/db_control";
 
-    public static void main(String[] args) throws SQLException {
+    public static void loadDW() throws SQLException {
 
         // Retrieve configuration parameters
         try ( // Establish connections to control and staging databases using JDBC
